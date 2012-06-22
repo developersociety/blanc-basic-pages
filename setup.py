@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='blanc-basic-pages',
-    version='0.1',
+    version='0.1.1',
     description='Blanc Basic Pages for Django',
     long_description=open('README.rst').read(),
     url='http://www.blanctools.com/',
