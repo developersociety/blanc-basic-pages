@@ -16,6 +16,7 @@ setup(
     platforms=['any'],
     install_requires=[
         'django-mptt>=0.5.0',
+        'django-mptt-treechangelist>=0.1',
     ],
     packages=[
         'blanc_basic_pages',

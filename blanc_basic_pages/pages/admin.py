@@ -4,6 +4,7 @@ from django.contrib.flatpages.admin import FlatpageForm
 from django import forms
 from django.conf import settings
 from .models import Page
+from mptt_treechangelist.admin import TreeModelAdmin
 
 
 class PageAdminForm(forms.ModelForm):
@@ -25,9 +26,8 @@ class PageAdminForm(forms.ModelForm):
         model = Page
 
 
-class PageAdmin(admin.ModelAdmin):
+class PageAdmin(TreeModelAdmin):
     form = PageAdminForm
-    actions = None
     fieldsets = (
         (None, {
             'fields': ('unique_url', 'title')
