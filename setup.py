@@ -21,6 +21,7 @@ setup(
     packages=[
         'blanc_basic_pages',
         'blanc_basic_pages.pages',
+        'blanc_basic_pages.pages.templatetags',
     ],
     classifiers=[
         'Environment :: Web Environment',
