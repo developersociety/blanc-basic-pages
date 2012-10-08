@@ -3,7 +3,8 @@ from django.contrib.sites.models import Site
 from .models import Page
 
 
-def flatpage_sites(sender, instance, **kwargs):
-    instance.sites = [Site.objects.get_current()]
+def flatpage_sites(sender, instance, raw, **kwargs):
+    if not raw:
+        instance.sites = [Site.objects.get_current()]
 
 post_save.connect(flatpage_sites, sender=Page)
