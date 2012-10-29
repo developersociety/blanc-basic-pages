@@ -3,7 +3,7 @@ from django.contrib.flatpages.models import FlatPage
 from django.contrib.flatpages.admin import FlatpageForm
 from django import forms
 from django.conf import settings
-from .models import Page
+from blanc_basic_pages.pages import DEFAULT_MODEL, get_page_model
 from mptt_treechangelist.admin import TreeModelAdmin
 
 
@@ -23,7 +23,7 @@ class PageAdminForm(forms.ModelForm):
     url = None
 
     class Meta(FlatpageForm.Meta):
-        model = Page
+        model = get_page_model()
 
 
 class PageAdmin(TreeModelAdmin):
@@ -36,7 +36,7 @@ class PageAdmin(TreeModelAdmin):
             'fields': ('parent', 'show_nav')
         }),
         ('Content', {
-            'fields': ('content', 'sidebar')
+            'fields': ('content',)
         }),
         ('Advanced options', {
             'fields': ('template_name',)
@@ -48,4 +48,7 @@ class PageAdmin(TreeModelAdmin):
 
 
 admin.site.unregister(FlatPage)
-admin.site.register(Page, PageAdmin)
+
+# Only enable Page admin if a custom model isn't being used
+if getattr(settings, 'BASIC_PAGE_MODEL', DEFAULT_MODEL) == DEFAULT_MODEL:
+    admin.site.register(get_page_model(), PageAdmin)

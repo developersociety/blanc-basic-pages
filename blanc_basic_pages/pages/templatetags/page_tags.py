@@ -1,5 +1,5 @@
 from django import template
-from blanc_basic_pages.pages.models import Page
+from blanc_basic_pages.pages import get_page_model
 
 register = template.Library()
 
@@ -14,7 +14,7 @@ def get_root_pages(current_page=None):
     else:
         root_page = None
 
-    for i in Page.objects.root_nodes().filter(show_nav=True):
+    for i in get_page_model().objects.root_nodes().filter(show_nav=True):
         page_list.append((i, i == root_page))
 
     return page_list
