@@ -4,10 +4,13 @@ try:
 except ImportError:
     from distutils.core import setup
 
+# Use blanc_basic_pages.VERSION for version numbers
+version_tuple = __import__('blanc_basic_pages').VERSION
+version = '.'.join([str(v) for v in version_tuple])
 
 setup(
     name='blanc-basic-pages',
-    version='0.1.2',
+    version=version,
     description='Blanc Basic Pages for Django',
     long_description=open('README.rst').read(),
     url='http://www.blanctools.com/',
