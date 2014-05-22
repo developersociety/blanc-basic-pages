@@ -1,11 +1,10 @@
 from django.utils.functional import SimpleLazyObject
-from django.contrib.flatpages.models import FlatPage
 from django.conf import settings
-from django.utils.safestring import mark_safe
+from . import get_page_model
 
 
-def flatpage(request):
-    def get_flatpage():
+def page(request):
+    def get_page():
         url = request.path_info
 
         # This has no chance of working
@@ -16,13 +15,10 @@ def flatpage(request):
             url = '/' + url
 
         try:
-            f = FlatPage.objects.get(url=url)
-            f.title = mark_safe(f.title)
-            f.content = mark_safe(f.content)
-            return f
-        except FlatPage.DoesNotExist:
+            return get_page_model().objects.get(url=url)
+        except get_page_model().DoesNotExist:
             return ''
 
     return {
-        'lazy_flatpage': SimpleLazyObject(get_flatpage),
+        'lazy_page': SimpleLazyObject(get_page),
     }
