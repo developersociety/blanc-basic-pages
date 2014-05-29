@@ -5,14 +5,12 @@ Installation
 Requirements
 ============
 
-Before installing blanc-basic-pages, you'll need a copy of Django__ 1.4,
-django-mptt__ 0.5 and django-mptt-treechangelist__ 0.1 installed.
+Before installing blanc-basic-pages, you'll need a copy of Django__ 1.7,
+django-mptt__ 0.6.1 and django-mptt-admin installed.
 
 .. __: http://www.djangoproject.com/
 .. __: https://github.com/django-mptt/django-mptt
-.. __: https://github.com/blancltd/django-mptt-treechangelist
-
-The Django flatpages app is also required to be installed.
+.. __: https://github.com/leukeleu/django-mptt-admin
 
 
 Installing blanc-basic-pages
@@ -43,16 +41,16 @@ script::
 Configuring your project
 ========================
 
-Edit your Django project's settings module, ensure that
-``django.contrib.sites`` is already added to ``INSTALLED_APPS``, and add
-``blanc_basic_pages.pages`` as well as the other required apps::
+Edit your Django project's settings module, ensure that the required
+dependencies are installed and configured, then add ``blanc_basic_pages`` to
+``INSTALLED_APPS``::
 
     INSTALLED_APPS = (
-        'django.contrib.flatpages',
         ...
-        'blanc_basic_pages.pages',
         'mptt',
-        'mptt_treechangelist',
+        'django_mptt_admin',
+        ...
+        'blanc_basic_pages',
     )
 
-Once this is done, run ``python manage.py syncdb`` to update your database.
+Once this is done, run ``python manage.py migrate`` to update your database.
