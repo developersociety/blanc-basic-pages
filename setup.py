@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='blanc-basic-pages',
-    version='0.2.1',
+    version='0.3',
     description='Blanc Basic Pages for Django',
     long_description=open('README.rst').read(),
     url='https://github.com/blancltd/blanc-basic-pages',
