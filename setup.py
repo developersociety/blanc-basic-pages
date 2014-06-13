@@ -11,8 +11,8 @@ setup(
     maintainer_email='alex@blanc.ltd.uk',
     platforms=['any'],
     install_requires=[
-        'django-mptt>=0.6.0',
-        'django-mptt-admin==0.1.8',
+        'django-mptt>=0.6.1',
+        'django-mptt-admin>=0.1.8',
     ],
     packages=find_packages(),
     classifiers=[
