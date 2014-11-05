@@ -1,5 +1,5 @@
 from django import template
-from django.core.urlresolvers import reverse
+from django.shortcuts import resolve_url
 from django.utils import six
 from blanc_basic_pages import get_page_model
 
@@ -8,12 +8,9 @@ register = template.Library()
 
 @register.assignment_tag
 def get_root_pages(current_page=None):
-    # If given a string, this could either be:
-    # - A Django URL (which can be reversed)
-    # - A page URL
-    if isinstance(current_page, six.string_types):
+    if current_page and not isinstance(current_page, get_page_model()):
         try:
-            current_page = get_page_model().objects.get(url=reverse(current_page))
+            current_page = get_page_model().objects.get(url=resolve_url(current_page))
         except get_page_model().DoesNotExist:
             current_page = None
 
@@ -33,6 +30,15 @@ def get_root_pages(current_page=None):
 
 @register.assignment_tag
 def get_pages_at_level(current_page, level=1):
+    if current_page and not isinstance(current_page, get_page_model()):
+        try:
+            current_page = get_page_model().objects.get(url=resolve_url(current_page))
+        except get_page_model().DoesNotExist:
+            current_page = None
+
+    if not current_page:
+        return []
+
     page_and_ancestors = list(current_page.get_ancestors(include_self=True))
 
     # Page isn't deep enough to show this level of navigation
