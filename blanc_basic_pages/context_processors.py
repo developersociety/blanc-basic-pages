@@ -1,5 +1,6 @@
-from django.utils.functional import SimpleLazyObject
 from django.conf import settings
+from django.utils.functional import SimpleLazyObject
+
 from . import get_page_model
 
 

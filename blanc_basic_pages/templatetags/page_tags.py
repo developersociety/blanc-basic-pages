@@ -1,6 +1,7 @@
 from django import template
 from django.shortcuts import resolve_url
-from blanc_basic_pages import get_page_model
+
+from .. import get_page_model
 
 register = template.Library()
 

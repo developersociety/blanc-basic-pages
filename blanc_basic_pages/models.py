@@ -1,11 +1,14 @@
-from django.db import models
+from __future__ import unicode_literals
+
 from django.conf import settings
-from django.utils.encoding import iri_to_uri, python_2_unicode_compatible
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import get_script_prefix
 from django.core.validators import RegexValidator
-from mptt.models import MPTTModel, TreeForeignKey
+from django.db import models
+from django.utils.encoding import iri_to_uri, python_2_unicode_compatible
+
 from mptt.managers import TreeManager
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 # Validator from flatpages
@@ -28,19 +31,18 @@ class AbstractPage(MPTTModel):
         ('', 'Default'),
     ))
 
-    url = models.CharField('URL', max_length=100, unique=True,
-                           help_text="Example: '/about/contact/'. Make sure to have leading and "
-                                     "trailing slashes.",
-                           validators=[url_validator, slash_validator])
+    url = models.CharField(
+        'URL', max_length=100, unique=True,
+        help_text="Example: '/about/contact/'. Make sure to have leading and trailing slashes.",
+        validators=[url_validator, slash_validator])
     title = models.CharField(max_length=200)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     show_in_navigation = models.BooleanField(default=True, db_index=True)
     content = models.TextField(blank=True)
     template_name = models.CharField(max_length=100, blank=True, choices=TEMPLATE_CHOICES)
     published = models.BooleanField(default=True, db_index=True)
-    login_required = models.BooleanField(default=False,
-                                         editable=getattr(settings, 'PAGE_SHOW_LOGIN', False),
-                                         db_index=True)
+    login_required = models.BooleanField(
+        default=False, editable=getattr(settings, 'PAGE_SHOW_LOGIN', False), db_index=True)
 
     objects = TreeManager()
 

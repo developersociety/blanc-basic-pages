@@ -1,6 +1,7 @@
-from django.contrib import admin
-from django.conf import settings
 from django_mptt_admin.admin import DjangoMpttAdmin
+from django.conf import settings
+from django.contrib import admin
+
 from .models import Page
 
 
