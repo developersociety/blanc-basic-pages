@@ -11,7 +11,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Blanc Basic Pages'
-copyright = u'2014, Blanc Ltd'
+copyright = u'2012-2015, Blanc Ltd'
 
 # The short X.Y version.
 version = '0.3'
