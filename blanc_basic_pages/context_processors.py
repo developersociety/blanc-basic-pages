@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.functional import SimpleLazyObject
 
-from . import get_page_model
+from .models import Page
 
 
 def page(request):
@@ -16,8 +16,8 @@ def page(request):
             url = '/' + url
 
         try:
-            return get_page_model().objects.get(url=url)
-        except get_page_model().DoesNotExist:
+            return Page.objects.get(url=url)
+        except Page.DoesNotExist:
             return ''
 
     return {
