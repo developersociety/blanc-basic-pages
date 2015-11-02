@@ -26,7 +26,7 @@ class PageAdmin(DjangoMpttAdmin):
                       (('login_required',) if SHOW_LOGIN_REQUIRED else ()),
         }),
     )
-    list_display = ('url', 'title')
+    list_display = ('url', 'title') + (('login_required',) if SHOW_LOGIN_REQUIRED else ())
     list_filter = ('published',) + (('login_required',) if SHOW_LOGIN_REQUIRED else ())
     search_fields = ('url', 'title')
     form = page_admin_form()
