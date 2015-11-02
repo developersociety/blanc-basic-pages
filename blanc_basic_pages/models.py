@@ -26,7 +26,7 @@ def slash_validator(url):
 
 
 @python_2_unicode_compatible
-class AbstractPage(MPTTModel):
+class Page(MPTTModel):
     TEMPLATE_CHOICES = getattr(settings, 'PAGE_TEMPLATES', (
         ('', 'Default'),
     ))
@@ -46,17 +46,9 @@ class AbstractPage(MPTTModel):
 
     objects = TreeManager()
 
-    class Meta:
-        abstract = True
-
     def __str__(self):
         return '%s -- %s' % (self.url, self.title)
 
     def get_absolute_url(self):
         # Handle script prefix manually because we bypass reverse()
         return iri_to_uri(get_script_prefix().rstrip('/') + self.url)
-
-
-class Page(AbstractPage):
-    class Meta(AbstractPage.Meta):
-        swappable = 'PAGE_MODEL'

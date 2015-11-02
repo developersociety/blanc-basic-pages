@@ -1,17 +1,17 @@
 from django import template
 from django.shortcuts import resolve_url
 
-from .. import get_page_model
+from ..models import Page
 
 register = template.Library()
 
 
 @register.assignment_tag
 def get_root_pages(current_page=None):
-    if current_page and not isinstance(current_page, get_page_model()):
+    if current_page and not isinstance(current_page, Page):
         try:
-            current_page = get_page_model().objects.get(url=resolve_url(current_page))
-        except get_page_model().DoesNotExist:
+            current_page = Page.objects.get(url=resolve_url(current_page))
+        except Page.DoesNotExist:
             current_page = None
 
     page_list = []
@@ -22,7 +22,7 @@ def get_root_pages(current_page=None):
     else:
         root_page = None
 
-    for i in get_page_model().objects.root_nodes().filter(show_in_navigation=True, published=True):
+    for i in Page.objects.root_nodes().filter(show_in_navigation=True, published=True):
         page_list.append((i, i == root_page))
 
     return page_list
@@ -30,10 +30,10 @@ def get_root_pages(current_page=None):
 
 @register.assignment_tag
 def get_pages_at_level(current_page, level=1):
-    if current_page and not isinstance(current_page, get_page_model()):
+    if current_page and not isinstance(current_page, Page):
         try:
-            current_page = get_page_model().objects.get(url=resolve_url(current_page))
-        except get_page_model().DoesNotExist:
+            current_page = Page.objects.get(url=resolve_url(current_page))
+        except Page.DoesNotExist:
             current_page = None
 
     if not current_page:
