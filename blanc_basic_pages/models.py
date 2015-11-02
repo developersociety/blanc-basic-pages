@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import get_script_prefix
 from django.core.validators import RegexValidator
@@ -27,10 +26,6 @@ def slash_validator(url):
 
 @python_2_unicode_compatible
 class Page(MPTTModel):
-    TEMPLATE_CHOICES = getattr(settings, 'PAGE_TEMPLATES', (
-        ('', 'Default'),
-    ))
-
     url = models.CharField(
         'URL', max_length=100, unique=True,
         help_text="Example: '/about/contact/'. Make sure to have leading and trailing slashes.",
@@ -39,10 +34,9 @@ class Page(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     show_in_navigation = models.BooleanField(default=True, db_index=True)
     content = models.TextField(blank=True)
-    template_name = models.CharField(max_length=100, blank=True, choices=TEMPLATE_CHOICES)
+    template_name = models.CharField(max_length=100, blank=True)
     published = models.BooleanField(default=True, db_index=True)
-    login_required = models.BooleanField(
-        default=False, editable=getattr(settings, 'PAGE_SHOW_LOGIN', False), db_index=True)
+    login_required = models.BooleanField(default=False, db_index=True)
 
     objects = TreeManager()
 
