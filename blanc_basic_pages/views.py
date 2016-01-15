@@ -43,3 +43,7 @@ def render_page(request, obj):
     })
     response = HttpResponse(t.render(c))
     return response
+
+
+def lazy_page(request):
+    return page(request, request.path_info)
