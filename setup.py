@@ -1,12 +1,18 @@
 #!/usr/bin/env python
+from codecs import open
+
 from setuptools import find_packages, setup
+
+
+with open('README.rst', 'r', 'utf-8') as f:
+    readme = f.read()
 
 
 setup(
     name='blanc-basic-pages',
     version='0.3.3',
     description='Blanc Basic Pages for Django',
-    long_description=open('README.rst').read(),
+    long_description=readme,
     url='https://github.com/blancltd/blanc-basic-pages',
     maintainer='Blanc Ltd',
     maintainer_email='studio@blanc.ltd.uk',
