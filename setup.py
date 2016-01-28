@@ -18,6 +18,7 @@ setup(
     maintainer_email='studio@blanc.ltd.uk',
     platforms=['any'],
     install_requires=[
+        'blanc-basic-assets>=0.3.2',
         'django-mptt>=0.6.1',
         'django-mptt-admin>=0.1.8',
     ],

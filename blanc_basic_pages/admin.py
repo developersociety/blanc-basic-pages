@@ -19,7 +19,7 @@ class PageAdmin(DjangoMpttAdmin):
             'fields': ('parent', 'show_in_navigation')
         }),
         ('Content', {
-            'fields': ('content',)
+            'fields': ('hero_image', 'content',)
         }),
         ('Advanced options', {
             'fields': ('template_name', 'published') +

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from blanc_basic_assets.fields import AssetForeignKey
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import get_script_prefix
 from django.core.validators import RegexValidator
@@ -33,6 +34,7 @@ class Page(MPTTModel):
     title = models.CharField(max_length=200)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     show_in_navigation = models.BooleanField(default=True, db_index=True)
+    hero_image = AssetForeignKey('assets.Image', blank=True, null=True, on_delete=models.SET_NULL)
     content = models.TextField(blank=True)
     template_name = models.CharField(max_length=100, blank=True)
     published = models.BooleanField(default=True, db_index=True)
