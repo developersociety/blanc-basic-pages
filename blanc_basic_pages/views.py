@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.http import Http404, HttpResponse, HttpResponsePermanentRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.template import loader, RequestContext
 from django.views.decorators.csrf import csrf_protect
 
@@ -36,13 +36,14 @@ def render_page(request, obj):
 
     # We intentionally want an exception if the template is unavailable.
     # Go update your database if you remove a template!
-    t = loader.get_template(obj.template_name or DEFAULT_TEMPLATE)
-
-    c = RequestContext(request, {
+    c = {
         'page': obj,
-    })
-    response = HttpResponse(t.render(c))
-    return response
+    }
+    return render(
+        request,
+        obj.template_name or DEFAULT_TEMPLATE,
+        context=c
+    )
 
 
 def lazy_page(request):
