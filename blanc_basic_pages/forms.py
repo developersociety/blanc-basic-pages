@@ -1,6 +1,8 @@
 from django import forms
 from django.conf import settings
 
+from mptt.forms import MPTTAdminForm
+
 from .models import Page
 
 
@@ -9,7 +11,7 @@ TEMPLATE_CHOICES = getattr(settings, 'PAGE_TEMPLATES', (
 ))
 
 
-class PageAdminForm(forms.ModelForm):
+class PageAdminForm(MPTTAdminForm):
     class Meta:
         model = Page
         exclude = ()
