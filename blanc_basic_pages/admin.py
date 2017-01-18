@@ -11,22 +11,43 @@ SHOW_LOGIN_REQUIRED = getattr(settings, 'PAGE_SHOW_LOGIN', False)
 
 @admin.register(Page)
 class PageAdmin(DjangoMpttAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('url', 'title')
-        }),
-        ('Navigation', {
-            'fields': ('parent', 'show_in_navigation')
-        }),
-        ('Content', {
-            'fields': ('hero_image', 'content',)
-        }),
-        ('Advanced options', {
-            'fields': ('template_name', 'published') +
-                      (('login_required',) if SHOW_LOGIN_REQUIRED else ()),
-        }),
-    )
-    list_display = ('url', 'title') + (('login_required',) if SHOW_LOGIN_REQUIRED else ())
-    list_filter = ('published',) + (('login_required',) if SHOW_LOGIN_REQUIRED else ())
     search_fields = ('url', 'title')
     form = PageAdminForm
+
+    def get_fieldsets(self, request, obj=None):
+        advanced_options = ['template_name', 'published', 'login_required']
+
+        if not SHOW_LOGIN_REQUIRED:
+            advanced_options.remove('login_required')
+
+        fieldsets = (
+            (None, {
+                'fields': ('url', 'title'),
+            }),
+            ('Navigation', {
+                'fields': ('parent', 'show_in_navigation'),
+            }),
+            ('Content', {
+                'fields': ('hero_image', 'content'),
+            }),
+            ('Advanced options', {
+                'fields': advanced_options,
+            }),
+        )
+        return fieldsets
+
+    def get_list_display(self, request):
+        list_display = ['url', 'title', 'login_required']
+
+        if not SHOW_LOGIN_REQUIRED:
+            list_display.remove('login_required')
+
+        return list_display
+
+    def get_list_filter(self, request):
+        list_filter = ['published', 'login_required']
+
+        if not SHOW_LOGIN_REQUIRED:
+            list_filter.remove('login_required')
+
+        return list_filter
