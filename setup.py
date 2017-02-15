@@ -10,7 +10,7 @@ with open('README.rst', 'r', 'utf-8') as f:
 
 setup(
     name='blanc-basic-pages',
-    version='0.3.6',
+    version='0.3.7',
     description='Blanc Basic Pages for Django',
     long_description=readme,
     url='https://github.com/blancltd/blanc-basic-pages',
