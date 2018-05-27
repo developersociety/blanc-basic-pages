@@ -14,8 +14,8 @@ setup(
     description='Blanc Basic Pages for Django',
     long_description=readme,
     url='https://github.com/developersociety/blanc-basic-pages',
-    maintainer='Blanc Ltd',
-    maintainer_email='studio@blanc.ltd.uk',
+    maintainer='The Developer Society',
+    maintainer_email='studio@dev.ngo',
     platforms=['any'],
     include_package_data=True,
     install_requires=[
