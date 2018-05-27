@@ -13,7 +13,7 @@ setup(
     version='0.3.7',
     description='Blanc Basic Pages for Django',
     long_description=readme,
-    url='https://github.com/blancltd/blanc-basic-pages',
+    url='https://github.com/developersociety/blanc-basic-pages',
     maintainer='Blanc Ltd',
     maintainer_email='studio@blanc.ltd.uk',
     platforms=['any'],
